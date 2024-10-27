@@ -47,8 +47,9 @@ public class SocialMediaController {
     }
 
     /**
-     * This is an example handler for an example endpoint.
-     * @param context The Javalin Context object manages information about both the HTTP request and response.
+     * Register a new user. Username and password are in the body. Sends 400 status for an invalid unsername/password
+     * @param context of the HTTP request
+     * @throws JsonProcessingException if there is a error in converting the JSON to an object.
      */
     private void registerAccountHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
@@ -61,6 +62,11 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * Checks if the account exists. Sends 401 status for an invalid unsername/password
+     * @param context of the HTTP request
+     * @throws JsonProcessingException if there is a error in converting the JSON to an object.
+     */
     private void loginHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         Account account = om.readValue(context.body(), Account.class);
@@ -72,6 +78,11 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * Posts a new message. Message is in the body. Sends 400 status for an invalid message
+     * @param context of the HTTP request
+     * @throws JsonProcessingException if there is a error in converting the JSON to an object.
+     */
     private void postMessageHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         Message message = om.readValue(context.body(), Message.class);
@@ -83,12 +94,22 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * Gets all messeges.
+     * @param context of the HTTP request
+     * @throws JsonProcessingException if there is a error in converting the JSON to an object.
+     */
     private void getAllMessagesHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         List<Message> messageList = messageService.getAllMessages();
         context.json(om.writeValueAsString(messageList));
     }
 
+    /**
+     * Get message with given message_id. ID passed as path parameter. Sends empty body if the message does not exist.
+     * @param context of the HTTP request
+     * @throws JsonProcessingException if there is a error in converting the JSON to an object.
+     */
     private void getMessageByIdHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         int messageID = Integer.parseInt(context.pathParam("message_id"));
@@ -98,6 +119,11 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * Deletes message with given message_id. ID passed as path parameter. Sends the deleted message in the body if it exists.
+     * @param context of the HTTP request
+     * @throws JsonProcessingException if there is a error in converting the JSON to an object.
+     */
     private void deleteMessageHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         int messageID = Integer.parseInt(context.pathParam("message_id"));
@@ -107,6 +133,12 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * Updates message with given message_id with the text sent in the body. ID passed as path parameter.
+     * Sends 400 status if the text is invalid or ID does not exist.
+     * @param context of the HTTP request
+     * @throws JsonProcessingException if there is a error in converting the JSON to an object.
+     */
     private void patchMessageHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         int messageID = Integer.parseInt(context.pathParam("message_id"));
@@ -119,6 +151,11 @@ public class SocialMediaController {
         }
     }
 
+    /**
+     * Gets all messages from a given user. User ID passed as path parameter.
+     * @param context of the HTTP request
+     * @throws JsonProcessingException if there is a error in converting the JSON to an object.
+     */
     private void getAllMessagesByUserHandler(Context context) throws JsonProcessingException{
         ObjectMapper om = new ObjectMapper();
         int accountID = Integer.parseInt(context.pathParam("account_id"));

@@ -9,6 +9,10 @@ import Util.ConnectionUtil;
 
 public class MessageDAO {
 
+    /**
+     * Select all messages.
+     * @return List of Messages.
+     */
     public List<Message> getAllMessages(){
         Connection connection = ConnectionUtil.getConnection();
         List<Message> messageList = new ArrayList<>();
@@ -31,6 +35,11 @@ public class MessageDAO {
         return messageList;
     }
 
+    /**
+     * Select all messages from a given user.
+     * @param account ID of the user.
+     * @return List of messages
+     */
     public List<Message> getAllMessagesByUser(int accountID){
         Connection connection = ConnectionUtil.getConnection();
         List<Message> messageList = new ArrayList<>();
@@ -54,6 +63,11 @@ public class MessageDAO {
         return messageList;
     }
 
+    /**
+     * Select message that matches the given message ID.
+     * @param messageID
+     * @return Message or null if no message exists.
+     */
     public Message getMessageByID(int messageID){
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -76,6 +90,11 @@ public class MessageDAO {
         return null;
     }
 
+    /**
+     * Insert message into database.
+     * @param message to insert without message_id
+     * @return Inserted message with message_id
+     */
     public Message insertMessage(Message message){
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -100,6 +119,11 @@ public class MessageDAO {
         return null;
     }
 
+    /**
+     * Delete message that matches message ID
+     * @param messageID
+     * @return Number or rows deleted
+     */
     public int deleteMessageByID(int messageID){
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -115,6 +139,12 @@ public class MessageDAO {
         return -1;
     }
     
+    /**
+     * Update message that matches message ID with message text.
+     * @param messageID
+     * @param messageText
+     * @return rows altered.
+     */
     public int updateMessageByID(int messageID, String messageText){
         Connection connection = ConnectionUtil.getConnection();
         try {

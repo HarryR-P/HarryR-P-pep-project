@@ -6,6 +6,11 @@ import Util.ConnectionUtil;
 
 public class AccountDAO {
 
+    /**
+     * Selects account that matches the username and password of account
+     * @param account
+     * @return new account or null if account does not exist.
+     */
     public Account getAccount(Account account){
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -28,6 +33,11 @@ public class AccountDAO {
         return null;
     }
 
+    /**
+     * Selects account based on the username parameter
+     * @param username
+     * @return new account or null if account does not exist.
+     */
     public Account getAccountByUsername(String username){
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -49,6 +59,11 @@ public class AccountDAO {
         return null;
     }
 
+    /**
+     * Selects account that matches accountID.
+     * @param accountID
+     * @return new account or null if account does not exist.
+     */
     public Account getAccountByID(int accountID){
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -70,6 +85,11 @@ public class AccountDAO {
         return null;
     }
 
+    /**
+     * Inserts given account into database
+     * @param Account to insert without account ID
+     * @return new Account with account ID
+     */
     public Account insertAccount(Account account){
         Connection connection = ConnectionUtil.getConnection();
         try {
