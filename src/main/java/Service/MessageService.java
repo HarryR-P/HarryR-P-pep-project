@@ -62,7 +62,7 @@ public class MessageService {
     }
 
     /**
-     * update message with message ID with message text.
+     * update message with message ID, with the given message text.
      * @param messageID
      * @param messageText
      * @return Message that was updated or null if message text is invalid or message ID does not exist.
